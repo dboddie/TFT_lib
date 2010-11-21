@@ -137,6 +137,11 @@ void Graphics::DrawCircle(uint16_t x, uint16_t y, uint16_t radius, uint16_t colo
 }
 
 
+void Graphics::DrawRect(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color, uint8_t fill)
+{
+    DrawRoundRect(x, y, x + width, y + height, 0, color, fill);
+}
+
 void Graphics::DrawRoundRect(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t radius, uint16_t color, uint8_t fill)
 {
 
