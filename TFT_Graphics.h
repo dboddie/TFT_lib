@@ -26,4 +26,4 @@ class Graphics
 	void VerticalScroll(int16_t y);
 };
 
-#endif 
+#endif
