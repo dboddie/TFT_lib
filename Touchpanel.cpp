@@ -6,7 +6,7 @@
 
 #include <avr/eeprom.h>
 #include <TFT_Arduino.h>
-#include "touchpanel.h"
+#include "Touchpanel.h"
 
 touchpanel::touchpanel()
 {
