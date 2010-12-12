@@ -15,10 +15,10 @@ Graphics::Graphics()
 
 void Graphics::initialize(uint8_t orient)
 {
-	LCD::SetOrientation(orient);
 	LCD::SetColor(WHITE);
 	LCD::init();
-	}
+	LCD::SetOrientation(orient);
+}
 
 
 void Graphics::SetCursor(uint16_t x, uint16_t y){
