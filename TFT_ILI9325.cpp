@@ -15,7 +15,7 @@
 uint16_t _color;
 uint8_t _orientation;
 
-uint8_t lcd_reg_addr[REG_SIZE] PROGMEM={
+const uint8_t lcd_reg_addr[REG_SIZE] PROGMEM={
     0x00E3,             // 0x3008 set the internal timing
     0x00E7,             // 0x0012 set the internal timing
     0x00EF,             // 0x1231 set the internal timing
@@ -89,7 +89,7 @@ uint8_t lcd_reg_addr[REG_SIZE] PROGMEM={
 };
 
 
-uint16_t lcd_reg_data[REG_SIZE] PROGMEM={
+const uint16_t lcd_reg_data[REG_SIZE] PROGMEM={
     /*0x00E3*/              0x3008,     //set the internal timing
     /*0x00E7*/              0x0012,     //set the internal timing
     /*0x00EF*/              0x1231,     //set the internal timing
@@ -212,9 +212,10 @@ void LCD::init(uint8_t orientation){
        addr = pgm_read_byte(&lcd_reg_addr[i]);
        dat = pgm_read_word(&lcd_reg_data[i]);
       
-        if (addr == 0xFF)
-            _delay_ms(dat);
-        else
+        if (addr == 0xFF) {
+            for (int d = 0; d < dat; d += 50)
+                _delay_ms(50);
+        } else
             set_Reg(addr, dat);
     }
     
