@@ -234,7 +234,7 @@ DRESULT disk_writep (
 	DRESULT res;
 	WORD bc;
 	static WORD wc;
-
+    static WORD state = 0;
 
 	res = RES_ERROR;
 
@@ -246,13 +246,14 @@ DRESULT disk_writep (
 		}
 		res = RES_OK;
 	} else {
-		if (sa) {	/* Initiate sector write process */
+		if (state == 0) {	/* Initiate sector write process */
 			if (!(CardType & CT_BLOCK)) sa *= 512;	/* Convert to byte address if needed */
 			if (send_cmd(CMD24, sa) == 0) {			/* WRITE_SINGLE_BLOCK */
 				xmit_spi(0xFF); xmit_spi(0xFE);		/* Data block header */
 				wc = 512;							/* Set byte counter */
 				res = RES_OK;
 			}
+            state = 1;
 		} else {	/* Finalize sector write process */
 			bc = wc + 2;
 			while (bc--) xmit_spi('A');	/* Fill left bytes and CRC with zeros */
@@ -269,6 +270,7 @@ DRESULT disk_writep (
 			}*/
 			release_spi();
 			res = RES_OK;
+            state = 0;
 		}
 	}
 
