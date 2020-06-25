@@ -6,7 +6,9 @@
 
 #include <avr/io.h>
 #include <avr/pgmspace.h>
+#ifndef F_CPU
 #define F_CPU 16000000L
+#endif
 #include <util/delay.h>
 #include "TFT_ILI9325.h"
 
